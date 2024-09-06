@@ -1,0 +1,59 @@
+---
+import type { ApiData } from "../../interfaces/dbData";
+import ContactForm from "../Blocks/contact/ContactForm";
+import ButtonContent_2 from "../button/ButtonContent_2";
+
+interface Props {
+  image: string;
+  title?: string;
+  text: string;
+  namebutton: string;
+  btnNumber: string;
+  btnStyle: string;
+}
+
+const { image, title, text, namebutton, btnNumber, btnStyle } = Astro.props;
+
+let UrlApi = import.meta.env.API_URL;
+let KetApi = import.meta.env.API_KEY;
+const response = await fetch(`${UrlApi}/${KetApi}`);
+const data: ApiData = await response.json();
+---
+
+<div
+  class="py-10 relative"
+  style={{
+    backgroundImage: `url("${image}")`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  }}
+>
+  <div class="bg-black absolute z-10 inset-0 bg-opacity-50"></div>
+  <div
+    class="flex items-center justify-center md:p-2 p-4 self-center relative z-20"
+  >
+    <div
+      class="flex md:w-[80%] mx-auto w-[95%] h-full items-center md:flex-row flex-col"
+    >
+      <div class="flex flex-col md:w-[50%] p-6 gap-6 md:text-start text-center">
+        <h1 class="md:text-[46px] text-[36px] font-bold text-white capitalize">
+          {title}
+        </h1>
+        <p class="text-white">
+          {text}
+        </p>
+        <ButtonContent_2
+          titleBtn={namebutton}
+          linkBtn={`tel:+1${data.dataGeneral.phones[0].number}`}
+        />
+      </div>
+      <div class="md:w-[50%] w-full">
+        <div class="md:w-[75%] mx-auto bg-white rounded-lg py-4">
+          <h2 class="text-[24px] font-bold text-center">Get In Touch!</h2>
+          <ContactForm dataGlobal={data} />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

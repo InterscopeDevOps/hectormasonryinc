@@ -1,0 +1,119 @@
+@import url('../css/button/styleButton.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --primary: #00b4e8;
+  --secondary: #01566b;
+  --tertiary: #26d0f4;
+  --fourth: #4b4a4a;
+  --btn-color: #00b4e8;
+  --title: #1a1919;
+  --text: #141414;
+  --btn-hover-color: #0e98be;
+  --btn-border-color: #045a72;
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Estilos para el scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  /* Ancho de la barra de desplazamiento */
+}
+
+/* Handle del scrollbar */
+::-webkit-scrollbar-thumb {
+  background: var(--btn-hover-color);
+  /* Color del handle */
+  border-radius: 6px;
+  /* Bordes redondeados */
+}
+
+/* ***************************************************************************************************************** */
+
+
+/* Estilo para el indicador activo */
+
+/* Asegúrate de que el contenedor de Swiper tenga posición relativa */
+.swiper-container {
+  position: relative;
+  z-index: 1;
+  /* Contexto de apilamiento para los elementos internos */
+}
+
+.swiper-pagination {
+  z-index: 21;
+  /* Asegura visibilidad y clickeabilidad por encima del overlay */
+}
+
+
+.swiper-pagination-bullet {
+  width: 30px !important;
+  height: 30px !important;
+  background-color: #ffffff;
+  /* Puntos blancos */
+  opacity: 1;
+  position: absolute;
+  z-index: 21;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ff0000;
+  /* Punto activo en rojo */
+
+}
+
+
+.swiper-pagination-bullet-active {
+  background-color: var(--primary) !important;
+  /* Cambia el color a rojo */
+  animation: blink 1s infinite;
+  /* Añade efecto de parpadeo */
+}
+
+/* Keyframes para el efecto de parpadeo */
+@keyframes blink {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+
+/* estilo de gallery masonry */
+
+.my-masonry-grid {
+  display: -webkit-box;
+  /* Not needed if autoprefixing */
+  display: -ms-flexbox;
+  /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -30px;
+  /* gutter size offset */
+  width: auto;
+}
+
+.my-masonry-grid_column {
+  padding-left: 30px;
+  /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column>div {
+  /* change div to reference your elements you put in <Masonry> */
+  background: grey;
+  margin-bottom: 20px;
+}
+
+/* ***************************************************************************************************************** */
+
+.bg3 {
+  background: rgb(110, 110, 110);
+  background: linear-gradient(40deg, rgba(110, 110, 110, 1) 0%, rgba(222, 222, 222, 1) 47%, rgba(110, 110, 110, 1) 100%);
+}

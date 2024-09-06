@@ -1,0 +1,116 @@
+---
+import MenuModalForm from "./MenuModalForm";
+import ButtonContent2 from "../button/ButtonContent_2";
+import type { ApiData } from "../../interfaces/dbData";
+import { MenuHeader } from "./MenuHeader";
+import { RedesIcons } from "../RedesIcons";
+
+let UrlApi = import.meta.env.API_URL;
+let KetApi = import.meta.env.API_KEY;
+// Realiza la llamada a la API
+const response = await fetch(`${UrlApi}/${KetApi}`);
+const data: ApiData = await response.json();
+---
+
+<header class="bg-[#FCFAF7] relative z-50" transition:animate="none">
+  <div class="bg3">
+    <div
+      class="md:w-[70%] w-[100%] mx-auto hidden md:flex justify-between items-center px-14 py-5 rounded-br-[10px] rounded-bl-[10px]"
+    >
+      <p class="font-semibold text-black">
+        Welcome To {data?.name}
+      </p>
+
+      <RedesIcons redesSociales={data?.redesSociales} />
+    </div>
+  </div>
+  <div
+    class="md:w-[70%] w-full mx-auto py-1 flex items-center md:justify-between justify-center md:px-6  md:rounded-2xl md:bg-transparent bg-black"
+  >
+    <img
+      src={data.logos.secondary}
+      alt={data.name}
+      class="md:max-w-[300px] md:max-h-[300px] max-w-[300px] -my-5 md:w-[250px] w-[300px] object-contain"
+      width="200"
+      height="200"
+      loading="lazy"
+    />
+
+    <div class="md:flex gap-4 font-bold hidden">
+      <div>
+        {
+          data.dataGeneral.location.slice(0, 1).map((item) => {
+            return (
+              <div class="flex border-r-[1px] border-white px-8 py-4">
+                <span
+                  style={{ backgroundColor: data.colors.primaryColor }}
+                  class="p-4 bg-opacity-30 flex justify-center items-center rounded-2xl w-[50px] h-[50px] "
+                >
+                  <i class={`fa-solid fa-map text-[26px] text-white`} />
+                </span>
+                <div class="flex flex-col pl-2">
+                  <span
+                    class="font-bold text-[20px]"
+                    style={{ color: data.colors.primaryColor }}
+                  >
+                    Location
+                  </span>
+                  <span>{item.city}</span>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+      <div>
+        {
+          data.dataGeneral.openingHours.slice(0, 1).map((item) => {
+            return (
+              <div class="flex px-8 py-4">
+                <span
+                  style={{ backgroundColor: data.colors.primaryColor }}
+                  class="p-4 bg-opacity-30 flex justify-center items-center rounded-2xl w-[50px] h-[50px] "
+                >
+                  <i
+                    class={`fa-solid fa-calendar-alt text-[26px] text-white`}
+                  />
+                </span>
+                <div class="flex flex-col pl-2">
+                  <span
+                    class="font-bold text-[20px]"
+                    style={{ color: data.colors.primaryColor }}
+                  >
+                    {item.days}
+                  </span>
+                  <span>{item.hours}</span>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+      <div class="flex items-center">
+        <ButtonContent2
+          titleBtn="Call Us Now!"
+          linkBtn={`tel:+1${data.dataGeneral.phones[0].number}`}
+        />
+      </div>
+    </div>
+  </div>
+  <div class="flex items-center shadow-lg">
+    <div class="flex w-full">
+      <div class="md:w-[70%] w-[40%] md:h-[70px] bg-primary">
+        <div
+          class="md:w-[70%] mx-auto md:h-[70px] h-full flex self-center items-center justify-center"
+        >
+          <MenuHeader client:load data={data} />
+        </div>
+      </div>
+      <div
+        class="flex gap-2 md:w-[20%] w-full rounded-tr-full rounded-br-full md:h-[70px] border-l-8 border-white bg3 items-center justify-center"
+      >
+        <MenuModalForm client:only dataGlobal={data} />
+      </div>
+    </div>
+  </div>
+</header>

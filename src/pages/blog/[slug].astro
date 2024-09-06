@@ -1,0 +1,42 @@
+---
+import LazyImage from "@/components/LazyImage";
+import TransparentHeader from "@/components/TransparentHeader/TransparentHeader";
+import EliminarCaracteresEspeciales from "@/hook/EliminarCaracteresEspeciales";
+import type { Blogs } from "@/interfaces/dbBlog";
+import type { ApiData } from "@/interfaces/dbData";
+import Layout from "@/layouts/Layout.astro";
+import BlogsDetail from "../../components/blogs/BlogsDetail";
+
+let UrlApi = import.meta.env.API_URL;
+let KetApi = import.meta.env.API_KEY;
+let UrlAPiBlog = import.meta.env.API_URL_BLOG;
+
+const { slug } = Astro.params;
+
+// Realiza la llamada a la API
+const response = await fetch(`${UrlApi}/${KetApi}`);
+const data: ApiData = await response.json();
+
+// Realiza la llamada a la API Blog
+const responseBlog = await fetch(`${UrlAPiBlog}/${KetApi}`);
+const dataBlog: Blogs[] = await responseBlog.json();
+
+// Encontrar el blog específico por slug
+const blogInfo = dataBlog.find((b) => b.slug === slug);
+---
+
+<Layout
+  title={`${data.name} | ${blogInfo?.seoTitle}`}
+  description={blogInfo?.metadescription || data.sectionsHomeAbout[0].text}
+  favicon={data.logos.secondary}
+  featuredImage={blogInfo?.featureimage || data.gallery[0]}
+  keywords={blogInfo?.keywords ||
+    data.services.map((service: any) => service.title).join(", ")}
+>
+  <TransparentHeader
+    bgImages={data.gallery[0]}
+    title={blogInfo?.seoTitle || "Blog"}
+    client:load
+  />
+  <BlogsDetail blog={blogInfo!} blogs={dataBlog} data={data} client:only />
+</Layout>
