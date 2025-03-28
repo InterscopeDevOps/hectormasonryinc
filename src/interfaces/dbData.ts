@@ -2,7 +2,7 @@ export interface ApiData {
   logos: Logos;
   dataGeneral: DataGeneral;
   valuesContent: ValuesContent;
-  widgets: Widgets;
+  widgets: { [key: string]: boolean };
   reviews: Reviews;
   colors: Colors;
   _id: string;

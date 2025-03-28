@@ -12,6 +12,7 @@ import ContentContact from "@/components/Blocks/home/ContenctContact";
 import ServicesComponent from "@/components/Blocks/services/ServicesComponent";
 import LazyImage from "@/components/LazyImage";
 import AreasBlockOne from "../components/Blocks/areas-we-serve/AreasBlockOne";
+import Modalvideo from "@/components/Modalvideo";
 
 let UrlApi = import.meta.env.API_URL;
 let KetApi = import.meta.env.API_KEY;
@@ -40,6 +41,8 @@ const landingServices = data.widgets.landingServices;
 
 // onePages
 const onePages = data.widgets.onePages;
+
+
 ---
 
 <Layout
@@ -73,12 +76,22 @@ const onePages = data.widgets.onePages;
     }
     `}
 >
+
+
   <SlideShow
     dataBlocks={dataBlocks}
     dataPhone={dataPhone}
     data={data}
     client:load
   />
+
+
+  {
+    data.widgets.videoAnimado ? (
+      <Modalvideo data={data} client:load />
+    ) : null
+  }
+
 
   <HomeBlocks
     homeSection={homeSection}
