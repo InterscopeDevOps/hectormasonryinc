@@ -17,5 +17,10 @@ export default defineConfig({
   output: "server",
   adapter: netlify({
     edgeMiddleware: true
-  })
+  }),
+    rollupOptions: {
+
+    external: ['mime', 'path-to-regexp']
+ 
+   }
 });
