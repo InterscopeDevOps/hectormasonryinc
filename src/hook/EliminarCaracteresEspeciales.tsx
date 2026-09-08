@@ -1,9 +1,13 @@
+
+
+
+//metodo para eliminar caracteres especiales y remplazar los espacio con guiones
 const EliminarCaracteresEspeciales = (text: string) => {
     return text
         .toLowerCase()
-        .trim() // Mover trim() aquí para asegurarse que los espacios al inicio/final se eliminen primero
-        .replace(/[\s']+/g, "-") // Asegura reemplazar todos los espacios y comillas simples por guiones de forma global
-        .replace(/[^\w-]+/g, ""); // Elimina todos los caracteres que no sean palabras o guiones
+        .replace(/[\s']+/, "-") // Asegura reemplazar todos los espacios y comillas simples por guiones
+        .replace(/[^\w-]+/g, "") // Elimina todos los caracteres que no sean palabras o guiones
+        .trim();
 };
 
 export default EliminarCaracteresEspeciales;
